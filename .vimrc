@@ -63,4 +63,12 @@ let g:autopep8_max_line_length=100
 nnoremap <leader>y :Yapf<cr>
 nnoremap <leader>fun :-1read $HOME/vim/.skeleton.fun<CR>f(a
 nnoremap <leader>stan :-1read $HOME/vim/.skeleton.stan<CR>o
-
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+inoremap ll <Esc>ea
+set background=dark

@@ -15,8 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 " used Bundle instead of Plugin)
 
 " ...
-Bundle 'Valloric/YouCompleteMe'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'itchyny/lightline.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'vim-syntastic/syntastic'
@@ -30,9 +29,6 @@ Plugin 'mindriot101/vim-yapf'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
 let python_highlight_all=1
 syntax on
 
@@ -42,27 +38,26 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
-highlight BadWhitespace ctermfg=16 ctermbg=253 guifg=#000000 guibg=#F8F8F0
+highlight BadWhitespace ctermfg=16 ctermbg=166 guifg=#000000 guibg=#F8F8F0
 au Filetype python match BadWhitespace /\s\+$/
-au Filetype python  set tabstop=4  softtabstop=4 shiftwidth=4 textwidth=100 autoindent expandtab fileformat=unix 
+au Filetype python set tabstop=4  softtabstop=4 shiftwidth=4 textwidth=100 autoindent expandtab fileformat=unix 
 set splitbelow
 set splitright
 set number relativenumber
 set nowrap
 set tabstop:4
 set encoding=utf-8
-highlight ColorColumn ctermbg=0 guibg=lightgrey
-set colorcolumn=100
+highlight ColorColumn ctermbg=166 guibg=lightgrey
+set colorcolumn=80
 set modeline
+
 let g:hardtime_default_on = 1
-let g:syntastic_python_flake8_post_args='--ignore=E501,E128,E225'
+
 let g:syntastic_python_checkers=["flake8"]
 let g:autopep8_on_save = 1
 let g:autopep8_disable_show_diff=1
-let g:autopep8_max_line_length=100
+let g:autopep8_max_line_length=80
 nnoremap <leader>y :Yapf<cr>
-nnoremap <leader>fun :-1read $HOME/vim/.skeleton.fun<CR>f(a
-nnoremap <leader>stan :-1read $HOME/vim/.skeleton.stan<CR>o
 inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
@@ -70,5 +65,9 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
-inoremap ll <Esc>ea
 set background=dark
+set ruler
+set laststatus=2
+set hlsearch
+nnoremap <CR> :nohlsearch<CR><CR>
+

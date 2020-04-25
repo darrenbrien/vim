@@ -19,8 +19,8 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
-Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-commentary'
 Plugin 'takac/vim-hardtime'
 Plugin 'psf/black', { 'tag': '19.10b0' }
 
@@ -35,7 +35,7 @@ endif
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-autocmd BufRead,BufNewFile *.py let python_highlight_all=1
+let python_highlight_all=1
 syntax on
 
 " Enable folding
@@ -44,6 +44,7 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 highlight BadWhitespace ctermfg=16 ctermbg=166 guifg=#000000 guibg=#F8F8F0
+hi MatchParen cterm=bold ctermbg=255 ctermfg=125
 au Filetype python match BadWhitespace /\s\+$/
 au Filetype python set tabstop=4  softtabstop=4 shiftwidth=4 textwidth=100 autoindent expandtab fileformat=unix 
 set splitbelow
@@ -77,20 +78,12 @@ autocmd FileType python inoremap <buffer> [ []<left>
 autocmd FileType python inoremap <buffer> { {}<left>
 autocmd FileType python inoremap <buffer> {<CR> {<CR>}<ESC>O
 autocmd FileType python inoremap <buffer> {;<CR> {<CR>};<ESC>O
-" Commenting blocks of code.
-autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-autocmd FileType sh,ruby,python   let b:comment_leader = '# '
-autocmd FileType conf,fstab       let b:comment_leader = '# '
-autocmd FileType tex              let b:comment_leader = '% '
-autocmd FileType mail             let b:comment_leader = '> '
-autocmd FileType vim              let b:comment_leader = '" '
-noremap <silent> <Leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <Leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 set background=dark
 set ruler
 set laststatus=2
 set hlsearch
 nnoremap <CR> :nohlsearch<CR><CR>
+noremap <leader>c :Commentary<cr>
 set path+=**
 map <F2> :echo 'Current time is ' . strftime('%x %X')<CR>
 map! <F3> <C-R>=strftime('%x %X')<CR>
@@ -99,3 +92,12 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent pclose | endif
 " need space end of line below
 set fillchars+=vert:\  
 set cursorline
+nnoremap <leader>l <C-W>l
+nnoremap <leader>k <C-W>k
+nnoremap <leader>j <C-W>j
+nnoremap <leader>h <C-W>h
+nnoremap <leader>q <C-W>q
+nnoremap <leader>vim :sp<Space>~/.vimrc<CR>
+nnoremap <leader>sovim :so<Space>~/.vimrc<CR>
+
+

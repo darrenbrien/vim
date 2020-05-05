@@ -45,13 +45,15 @@ set foldlevel=99
 nnoremap <space> za
 highlight BadWhitespace ctermfg=16 ctermbg=166 guifg=#000000 guibg=#F8F8F0
 hi MatchParen cterm=bold ctermbg=255 ctermfg=125
+hi VertSplit cterm=None
 au Filetype python match BadWhitespace /\s\+$/
+set tabstop:4
 au Filetype python set tabstop=4  softtabstop=4 shiftwidth=4 textwidth=100 autoindent expandtab fileformat=unix 
+au Filetype html set tabstop=2  softtabstop=2 shiftwidth=2 textwidth=100 autoindent expandtab fileformat=unix 
 set splitbelow
 set splitright
 set number relativenumber
 set nowrap
-set tabstop:4
 set encoding=utf-8
 autocmd FileType python highlight ColorColumn ctermbg=166 guibg=lightgrey
 autocmd FileType python set colorcolumn=90
@@ -70,6 +72,7 @@ let g:hardtime_default_on = 1
 let g:syntastic_python_checkers=["flake8"]
 autocmd BufWritePre *.py execute ':Black'
 autocmd BufWritePre *.py call flake8#Flake8()
+autocmd BufwritePre *.html normal magg=G'a
 autocmd FileType python nnoremap <buffer> <F9> :Black<cr>
 autocmd FileType python inoremap <buffer> " ""<left>
 autocmd FileType python inoremap <buffer> ' ''<left>
@@ -99,5 +102,5 @@ nnoremap <leader>h <C-W>h
 nnoremap <leader>q <C-W>q
 nnoremap <leader>vim :sp<Space>~/.vimrc<CR>
 nnoremap <leader>sovim :so<Space>~/.vimrc<CR>
-
-
+set tags=tags
+autocmd BufWritePost *.py silent! !ctags -R --python-kinds=-i &

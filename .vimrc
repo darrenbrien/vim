@@ -23,6 +23,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
 Plugin 'takac/vim-hardtime'
 Plugin 'psf/black', { 'tag': '19.10b0' }
+Plugin 'morhetz/gruvbox'
 
 if has('nvim')
     Plugin 'numirias/semshi'
@@ -34,10 +35,9 @@ endif
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-
 let python_highlight_all=1
 syntax on
-
+colorscheme gruvbox
 " Enable folding
 set foldmethod=indent
 set foldlevel=99

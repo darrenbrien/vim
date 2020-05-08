@@ -1,6 +1,18 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+alias vim=/usr/local/bin/nvim
+alias vi=/usr/local/bin/nvim
+alias ctags=/usr/local/bin/ctags
+
+eval "$(rbenv init -)"
+export alias ruby=/home/darrenbrien/.rbenv/versions/2.7.1/bin/ruby
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+eval "$(pyenv virtualenv-init -)"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/darrenbrien/.oh-my-zsh"
 
@@ -9,12 +21,6 @@ export ZSH="/Users/darrenbrien/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
-
-# alias python=/usr/local/bin/python3
-# alias pip=/usr/local/bin/pip3
-alias vim=/usr/local/bin/nvim
-alias vi=/usr/local/bin/nvim
-alias ctags=/usr/local/bin/ctags
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -103,10 +109,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-eval "$(rbenv init -)"
-export alias ruby=/home/darrenbrien/.rbenv/versions/2.7.1/bin/ruby
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi

@@ -10,8 +10,8 @@ export ZSH="/Users/darrenbrien/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
-alias python=/usr/local/bin/python3
-alias pip=/usr/local/bin/pip3
+# alias python=/usr/local/bin/python3
+# alias pip=/usr/local/bin/pip3
 alias vim=/usr/local/bin/nvim
 alias vi=/usr/local/bin/nvim
 alias ctags=/usr/local/bin/ctags
@@ -105,3 +105,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 eval "$(rbenv init -)"
 export alias ruby=/home/darrenbrien/.rbenv/versions/2.7.1/bin/ruby
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi

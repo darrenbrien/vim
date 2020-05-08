@@ -102,5 +102,6 @@ nnoremap <leader>h <C-W>h
 nnoremap <leader>q <C-W>q
 nnoremap <leader>vim :sp<Space>~/.vimrc<CR>
 nnoremap <leader>sovim :so<Space>~/.vimrc<CR>
+nnoremap <leader>json :%!python -m json.tool<CR>
 set tags=tags
 autocmd BufWritePost *.py silent! !ctags -R --python-kinds=-i &

@@ -1,9 +1,11 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-alias vim=/usr/local/bin/nvim
-alias vi=/usr/local/bin/nvim
+alias vim="/usr/local/bin/nvim -w ~/.keystrokes"
+alias vi="/usr/local/bin/nvim -w ~/.keystrokes"
 alias ctags=/usr/local/bin/ctags
+alias ll="ls -l"
+alias la="ls -la"
 
 eval "$(rbenv init -)"
 export alias ruby=/home/darrenbrien/.rbenv/versions/2.7.1/bin/ruby

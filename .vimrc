@@ -11,9 +11,12 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
 Plugin 'takac/vim-hardtime'
 Plugin 'psf/black', { 'tag': '19.10b0' }
 Plugin 'morhetz/gruvbox'
+Plugin 'alvan/vim-closetag'
+Plugin 'vimwiki/vimwiki'
 if has('nvim')
     Plugin 'numirias/semshi'
     Plugin 'Shougo/deoplete.nvim'
@@ -22,10 +25,20 @@ if has('nvim')
 endif
 call vundle#end()            
 
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_listtyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
 filetype plugin indent on     
 syntax on
 colorscheme gruvbox
 let g:hardtime_default_on = 1
+let g:hardtime_allow_different_key = 1
+let g:hardtime_showmsg = 1
+let g:hardtime_timeout = 3000
 set path+=**
 set foldmethod=indent
 set foldlevel=99
@@ -40,6 +53,7 @@ set background=dark
 set ruler
 set laststatus=2
 set hlsearch
+set wildmenu
 " need space end of line
 set fillchars+=vert:\ 
 set cursorline
@@ -64,7 +78,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent pclose | endif
 map <F2> :echo 'Current time is ' . strftime('%x %X')<CR>
 map! <F3> <C-R>=strftime('%x %X')<CR>
 " Enable folding with the f key
-nnoremap f za
+nnoremap <leader>f za
 " turn of highlight on enter
 nnoremap <CR> :nohlsearch<CR><CR>
 nnoremap <leader>c :Commentary<cr>
@@ -75,4 +89,34 @@ nnoremap <leader>h <C-W>h
 nnoremap <leader>q <C-W>q
 nnoremap <leader>vim :sp<Space>~/.vimrc<CR>
 nnoremap <leader>sovim :so<Space>~/.vimrc<CR>
-nnoremap <leader>json :%!python -m json.tool<CR>
+nnoremap <leader>H :HardTimeToggle<CR>
+let output = system('git rev-parse --show-toplevel')
+if v:shell_error == 0
+		:execute "cd" . output
+endif
+
+" Some boss split maps
+function ToggleSplitMaxHeight()
+		if (winheight('%') > 25)
+				:execute "resize " . 'wh'
+		else
+				:execute "resize" . 200
+		endif
+endfunction
+function ToggleSplitMaxWidth()
+		if (winwidth('%') > 120)
+				:execute "vertical-resize" . 250
+		else
+				:execute "vertical-resize " . 'winminwidth'
+		endif
+endfunction
+nnoremap <leader>= <C-W>=
+nnoremap <leader>m :call ToggleSplitMaxHeight()<CR>
+nnoremap <leader>n :call ToggleSplitMaxWidth()<CR>
+nnoremap <leader><left> 7<C-W><
+nnoremap <leader><up> 7<C-W>+
+nnoremap <leader><right> 7<C-W>>
+nnoremap <leader><down> 7<C-W>-
+
+nnoremap <leader>tt :new term://zsh<CR>
+tnoremap <Esc> <C-\><C-n>

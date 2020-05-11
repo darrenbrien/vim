@@ -17,4 +17,7 @@ au Filetype python match BadWhitespace /^\t\+/
 
 au BufWritePre *.py execute ':Black'
 au BufWritePre *.py call flake8#Flake8()
-au BufWritePost *.py silent! !ctags -R --python-kinds=-i &
+let output = system('git rev-parse --show-toplevel')
+if v:shell_error == 0
+	au BufWritePost *.py silent! !ctags -R --python-kinds=-i &
+endif

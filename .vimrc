@@ -28,9 +28,14 @@ call vundle#end()
 let g:netrw_banner=0
 let g:netrw_browse_split=4
 let g:netrw_altv=1
-let g:netrw_listtyle=3
+let g:netrw_liststyle=3	
+let g:netrw_winsize = 15
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_browsex_viewer = "open"
+au FileType netrw au BufLeave <buffer> :bd
+au FileType netrw au BufEnter <buffer> :execute "HardTimeOff"
+au FileType netrw au BufLeave <buffer> :execute "HardTimeOn"
 
 filetype plugin indent on     
 syntax on
@@ -39,7 +44,6 @@ let g:hardtime_default_on = 1
 let g:hardtime_allow_different_key = 1
 let g:hardtime_showmsg = 1
 let g:hardtime_timeout = 3000
-set path+=**
 set foldmethod=indent
 set foldlevel=99
 set tabstop=4
@@ -77,6 +81,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent pclose | endif
 
 map <F2> :echo 'Current time is ' . strftime('%x %X')<CR>
 map! <F3> <C-R>=strftime('%x %X')<CR>
+
 " Enable folding with the f key
 nnoremap <leader>f za
 " turn of highlight on enter
@@ -88,10 +93,10 @@ nnoremap <leader>j <C-W>j
 nnoremap <leader>h <C-W>h
 nnoremap <leader>q <C-W>q
 nnoremap <leader>vim :sp<Space>~/.vimrc<CR>
-nnoremap <leader>sovim :so<Space>~/.vimrc<CR>
-nnoremap <leader>H :HardTimeToggle<CR>
+nnoremap <leader>% :so<Space>~/.vimrc<CR>
 let output = system('git rev-parse --show-toplevel')
 if v:shell_error == 0
+		set path+=**
 		:execute "cd" . output
 endif
 
@@ -117,6 +122,10 @@ nnoremap <leader><left> 7<C-W><
 nnoremap <leader><up> 7<C-W>+
 nnoremap <leader><right> 7<C-W>>
 nnoremap <leader><down> 7<C-W>-
+nnoremap <leader>w :execute "write"
 
 nnoremap <leader>tt :new term://zsh<CR>
 tnoremap <Esc> <C-\><C-n>
+tnoremap exit<CR> exit<CR><CR>
+
+nnoremap <leader>p :Vexplore<CR>

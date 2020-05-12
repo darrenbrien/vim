@@ -33,7 +33,7 @@ let g:netrw_winsize = 15
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_browsex_viewer = "open"
-au FileType netrw au BufLeave <buffer> :bd
+" au FileType netrw au winLeave <buffer> :hide
 au FileType netrw au BufEnter <buffer> :execute "HardTimeOff"
 au FileType netrw au BufLeave <buffer> :execute "HardTimeOn"
 
@@ -60,7 +60,7 @@ set hlsearch
 set wildmenu
 " need space end of line
 set fillchars+=vert:\ 
-set cursorline
+set cursorline cursorcolumn
 set wildignore+=*.swp,*.ipynb,*.pyc
 let g:lightline = {
       \ 'colorscheme': 'powerline',
@@ -93,10 +93,11 @@ nnoremap <leader>j <C-W>j
 nnoremap <leader>h <C-W>h
 nnoremap <leader>q <C-W>q
 nnoremap <leader>vim :sp<Space>~/.vimrc<CR>
-nnoremap <leader>% :so<Space>~/.vimrc<CR>
+nnoremap <leader>sovim :so<Space>~/.vimrc<CR>
 let output = system('git rev-parse --show-toplevel')
 if v:shell_error == 0
 		set path+=**
+		set wildignore+=**/node_modules/**
 		:execute "cd" . output
 endif
 

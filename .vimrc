@@ -38,15 +38,15 @@ set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=0 autoindent expandtab filefo
 set fillchars+=vert:\ 
 set wildignore+=*.swp,*.ipynb,*.pyc
 let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
+            \ 'colorscheme': 'powerline',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'FugitiveHead'
+            \ },
+            \ }
 
 hi BadWhitespace ctermfg=16 ctermbg=166 guifg=#000000 guibg=#F8F8F0
 hi MatchParen cterm=bold ctermbg=255 ctermfg=125
@@ -70,25 +70,25 @@ nnoremap <leader>vim :sp<Space>~/.vimrc<CR>
 nnoremap <leader>sovim :so<Space>~/.vimrc<CR>
 let output = system('git rev-parse --show-toplevel')
 if v:shell_error == 0
-		set path+=**
-		set wildignore+=**/node_modules/**
-		:execute "cd" . output
+    set path+=**
+    set wildignore+=**/node_modules/**
+    :execute "cd" . output
 endif
 
 " Some boss split maps
 function ToggleSplitMaxHeight()
-		if (winheight('%') > 25)
-				:execute "resize " . 'wh'
-		else
-				:execute "resize" . 200
-		endif
+    if (winheight('%') > 25)
+        :execute "resize " . 'wh'
+    else
+        :execute "resize" . 200
+    endif
 endfunction
 function ToggleSplitMaxWidth()
-		if (winwidth('%') > 120)
-				:execute "vertical-resize" . 250
-		else
-				:execute "vertical-resize " . 'winminwidth'
-		endif
+    if (winwidth('%') > 120)
+        :execute "vertical-resize" . 250
+    else
+        :execute "vertical-resize " . 'winminwidth'
+    endif
 endfunction
 nnoremap <leader>= <C-W>=
 nnoremap <leader>m :call ToggleSplitMaxHeight()<CR>
@@ -98,9 +98,19 @@ nnoremap <leader><up> 7<C-W>+
 nnoremap <leader><right> 7<C-W>>
 nnoremap <leader><down> 7<C-W>-
 nnoremap <leader>w :execute "write"
-
 nnoremap <leader>tt :new term://zsh<CR>
-tnoremap <Esc> <C-\><C-n>
-" tnoremap exit<CR> exit<CR><CR>
-
 nnoremap <leader>p :Vexplore<CR>
+nnoremap <leader>/ :%s/
+nnoremap <Space>w :w<CR>
+nnoremap <Space>W :wa<CR>
+nnoremap <Space>ht :HardTimeToggle<CR>
+function JsonFormat(text)
+    let output = system('python -m json.tool', a:text)
+    if v:shell_error == 0
+        return l:output
+    else
+        return a:text
+    endif
+endfunction
+
+tnoremap <Esc> <C-\><C-n>

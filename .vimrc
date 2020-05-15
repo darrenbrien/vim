@@ -97,7 +97,6 @@ nnoremap <leader><left> 7<C-W><
 nnoremap <leader><up> 7<C-W>+
 nnoremap <leader><right> 7<C-W>>
 nnoremap <leader><down> 7<C-W>-
-nnoremap <leader>w :execute "write"
 nnoremap <leader>tt :new term://zsh<CR>
 nnoremap <leader>p :Vexplore<CR>
 nnoremap <leader>/ :%s/

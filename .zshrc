@@ -1,11 +1,16 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 alias vim="/usr/local/bin/nvim -w ~/.keystrokes"
 alias vi="/usr/local/bin/nvim -w ~/.keystrokes"
 alias ctags=/usr/local/bin/ctags
 alias ll="ls -l"
 alias la="ls -la"
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias pa="pyenv activate"
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
+
 
 eval "$(rbenv init -)"
 export alias ruby=/home/darrenbrien/.rbenv/versions/2.7.1/bin/ruby
@@ -23,6 +28,11 @@ export ZSH="/Users/darrenbrien/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir newline vcs)
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -111,3 +121,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+export AWS_PAGER=""
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/darrenbrien/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/darrenbrien/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/darrenbrien/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/darrenbrien/google-cloud-sdk/completion.zsh.inc'; fi

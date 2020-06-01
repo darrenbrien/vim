@@ -6,9 +6,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 " ...
 Plugin 'itchyny/lightline.vim'
+Plugin 'neomake/neomake'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
@@ -25,6 +24,23 @@ if has('nvim')
     let g:deoplete#enable_at_startup = 1
 endif
 call vundle#end()            
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+call neomake#configure#automake('nw', 750)
+" When reading a buffer (after 1s), and when writing (no delay).
+call neomake#configure#automake('rw', 1000)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 500ms; no delay when writing).
+call neomake#configure#automake('nrwi', 500)
+let g:neomake_open_list = 2
+let g:neomake_python_pep8_exe = 'flake8'
+let g:neomake_python_enabled_makers = ['pep8', 'flake8', 'pylama', 'pylint']
+let g:neomake_python_pep8_exe = '/Users/darrenbrien/.pyenv/versions/3.7.7/envs/neovim3/bin/pycodestyle'
+let g:neomake_python_flake8_exe = '/Users/darrenbrien/.pyenv/versions/3.7.7/envs/neovim3/bin/flake8'
+let g:neomake_python_pylint_exe = '/Users/darrenbrien/.pyenv/versions/3.7.7/envs/neovim3/bin/pylint'
+let g:neomake_python_pylama_exe = '/Users/darrenbrien/.pyenv/versions/3.7.7/envs/neovim3/bin/pylama'
+
 
 filetype plugin indent on     
 syntax on
@@ -32,26 +48,35 @@ colorscheme gruvbox
 let g:hardtime_default_on = 1
 let g:hardtime_allow_different_key = 1
 let g:hardtime_showmsg = 1
-let g:hardtime_timeout = 3000
-set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=0 autoindent expandtab fileformat=unix foldmethod=indent foldlevel=99 splitbelow splitright nu rnu nowrap encoding=utf-8 modeline background=dark ruler laststatus=2 hlsearch wildmenu cursorline cursorcolumn
+let g:hardtime_timeout = 1000
+"Turn on backup option Where to store backups Make backup before overwriting the current buffer Meaningful backup name, ex: filename@2015-04-05.14:59 Overwrite the original backup file
+au BufWritePre * let &bex = '@' . strftime("%F.%H:%M")
+set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=0 autoindent expandtab fileformat=unix 
+set foldmethod=indent foldlevel=99 splitbelow splitright nu rnu nowrap encoding=utf-8 
+set modeline background=dark ruler laststatus=2 hlsearch wildmenu cursorline cursorcolumn 
+set ignorecase smartcase  
+set backup backupdir=~/.vim/backup// writebackup backupcopy=yes
 " need space end of line
 set fillchars+=vert:\ 
 set wildignore+=*.swp,*.ipynb,*.pyc
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 let g:lightline = {
             \ 'colorscheme': 'powerline',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ]
             \ },
             \ 'component_function': {
             \   'gitbranch': 'FugitiveHead'
             \ },
             \ }
 
-hi BadWhitespace ctermfg=16 ctermbg=166 guifg=#000000 guibg=#F8F8F0
+hi BadWhitespace ctermfg=16 ctermbg=166 
 hi MatchParen cterm=bold ctermbg=255 ctermfg=125
 hi VertSplit cterm=None
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent pclose | endif
+autocmd BufNewFile,BufRead *.md set filetype=markdown
 
 map <F2> :echo 'Current time is ' . strftime('%x %X')<CR>
 map! <F3> <C-R>=strftime('%x %X')<CR>
@@ -103,6 +128,8 @@ nnoremap <leader>/ :%s/
 nnoremap <Space>w :w<CR>
 nnoremap <Space>W :wa<CR>
 nnoremap <Space>ht :HardTimeToggle<CR>
+nnoremap <Space>i :exec "normal i".nr2char(getchar())."\e"<CR>
+nnoremap <Space>a :exec "normal a".nr2char(getchar())."\e"<CR>
 function JsonFormat(text)
     let output = system('python -m json.tool', a:text)
     if v:shell_error == 0

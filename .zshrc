@@ -3,23 +3,22 @@ alias vi="/usr/local/bin/nvim -w ~/.keystrokes"
 alias ctags=/usr/local/bin/ctags
 alias ll="ls -l"
 alias la="ls -la"
-alias gs="git status"
-alias ga="git add"
-alias gc="git commit"
+alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias gs='git status'
 alias pa="pyenv activate"
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
   source "${VIRTUAL_ENV}/bin/activate"
 fi
 
-
 eval "$(rbenv init -)"
 export alias ruby=/home/darrenbrien/.rbenv/versions/2.7.1/bin/ruby
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/bin:~/node_modules/.bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 eval "$(pyenv virtualenv-init -)"
+export LD_LIBRARY_PATH="/Library/Developer/CommandLineTools/usr/lib/:$LD_LIBRARY_PATH"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/darrenbrien/.oh-my-zsh"
 
@@ -30,9 +29,8 @@ export ZSH="/Users/darrenbrien/.oh-my-zsh"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir newline vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir newline pyenv vcs)
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -92,8 +90,9 @@ POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
+plugins=(git osx docker python)
+bindkey -v
+export KEYTIMEOUT=1
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -128,3 +127,4 @@ if [ -f '/Users/darrenbrien/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dar
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/darrenbrien/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/darrenbrien/google-cloud-sdk/completion.zsh.inc'; fi
+alias akubectl=~/.aws/kubectl
